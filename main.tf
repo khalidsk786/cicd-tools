@@ -2,7 +2,7 @@ resource "aws_instance" "jenkins" {
   ami                    = data.aws_ami.joindevops.id
   instance_type          = "t3.small"
   vpc_security_group_ids = ["sg-064b842683170e6c5"]  #
-  subnet_id              = "subnet-046eb89e75484576a"
+  subnet_id              = "subnet-0a530f99c22b532fb"
   user_data = file("jenkins.sh")
 
   root_block_device {
@@ -22,7 +22,7 @@ resource "aws_instance" "jenkins-agent" {
   ami                    = data.aws_ami.joindevops.id
   instance_type          = "t3.small"
   vpc_security_group_ids = ["sg-064b842683170e6c5"]  #replace your SG
-  subnet_id              = "subnet-046eb89e75484576a" #replace you subnet
+  subnet_id              = "subnet-0a530f99c22b532fb" #replace you subnet
   user_data = file("jenkins-agent.sh")
   # Define the root volume size and type
   root_block_device {
