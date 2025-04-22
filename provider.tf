@@ -7,10 +7,10 @@ terraform {
   }
 
   backend "s3" {
-    bucket = ""
-    key    = "expense-tools"
+    bucket = "khalidskaws82s-dev1"
+    key    = "cicd-tools"
     region = "us-east-1"
-    dynamodb_table = "81s-locking"
+    dynamodb_table = "khalidskaws82s-dev1"
   }
 }
 

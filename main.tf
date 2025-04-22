@@ -1,13 +1,14 @@
 resource "aws_instance" "jenkins" {
   ami                    = data.aws_ami.joindevops.id
-  instance_type          = "t3.micro"
-  vpc_security_group_ids = ["sg-0ed700c7462de1777"]
-  subnet_id              = "subnet-05e4a80914b0743ce"
+  instance_type          = "t3.small"
+  vpc_security_group_ids = ["sg-064b842683170e6c5"]  #
+  subnet_id              = "subnet-046eb89e75484576a"
   user_data = file("jenkins.sh")
 
   root_block_device {
     volume_size = 50  # Set root volume size to 50GB
     volume_type = "gp3"  # Use gp3 for better performance (optional)
+    delete_on_termination = true  # Automatically delete the volume when the instance is terminated
   }
   tags = merge(
     var.common_tags,
@@ -19,14 +20,15 @@ resource "aws_instance" "jenkins" {
 
 resource "aws_instance" "jenkins-agent" {
   ami                    = data.aws_ami.joindevops.id
-  instance_type          = "t3.micro"
-  vpc_security_group_ids = ["sg-0f53a91997d8aa756"]
-  subnet_id              = "subnet-05e4a80914b0743ce"
+  instance_type          = "t3.small"
+  vpc_security_group_ids = ["sg-064b842683170e6c5"]  #replace your SG
+  subnet_id              = "subnet-046eb89e75484576a" #replace you subnet
   user_data = file("jenkins-agent.sh")
-
+  # Define the root volume size and type
   root_block_device {
     volume_size = 50  # Set root volume size to 50GB
     volume_type = "gp3"  # Use gp3 for better performance (optional)
+    delete_on_termination = true  # Automatically delete the volume when the instance is terminated
   }
   tags = merge(
     var.common_tags,
